@@ -1,0 +1,44 @@
+package firstPacakage;
+
+import org.testng.annotations.Test;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Reporter;
+import org.testng.annotations.DataProvider;
+
+public class TestDataProvider {
+ WebDriver driver;
+  @DataProvider
+  public Object[][] dp() {
+    return new Object[][]{{"Admin","admin123"},{"Admin1","admin12"},{"Admin","Admin00"},{"","admin123"}}; 
+    }
+  @Test(dataProvider = "dp")
+  public void testmethod(String sUserName,String sPassword) throws IOException {
+	 System.setProperty("webdriver.chrome.driver","E:\\Selenium\\chromedriver_win32\\chromedriver.exe");
+	 driver = new ChromeDriver();
+	 driver.get("site name");
+	 driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	 //user name 
+     driver.findElement(By.id("txtUsername")).sendKeys(sUserName);
+     //password
+     driver.findElement(By.id("txtPassword")).sendKeys(sPassword);
+     //PressEnter
+     driver.findElement(By.id("btnLogin")).sendKeys(Keys.ENTER);
+     //OrClickLogin
+     driver.findElement(By.id("btnLogin")).click();
+    
+     if(sUserName == "Admin" && sPassword == "admin123") {
+    	 System.out.println("Welcome-Login Successfully");
+    	 Reporter.log("Welcome-Login Successfully");
+     }
+     else {
+    	 System.out.println("Enter Valid UserName & Password");
+    	 Reporter.log("Enter Valid UserName & Password"); 
+    } 
+  }
+}
