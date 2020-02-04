@@ -1,2 +1,2 @@
 # login-test
-Login testing script
+Login Test Script Using DataProvider
